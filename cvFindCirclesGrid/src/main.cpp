@@ -24,7 +24,7 @@ int main(int argc, const char * argv[])
     Mat gray;
     vector<Point2f> centers;
     string img_file = "asset/marker0.jpg";
-    Size patternsize = cv::Size(4, 11);
+    Size patternsize = Size(4, 11);
     
     // 1. read image and convert to grayscale
     img = imread(img_file);
@@ -35,7 +35,7 @@ int main(int argc, const char * argv[])
     
     // 3. draw centers on the image
     namedWindow( "window", WINDOW_AUTOSIZE );
-    cv::drawChessboardCorners(img, patternsize, cv::Mat(centers), patternfound);
+    drawChessboardCorners(img, patternsize, Mat(centers), patternfound);
     imshow("window", img);
 
     // 4. output center coordinates
