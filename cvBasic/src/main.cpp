@@ -17,14 +17,18 @@ using namespace cv;
 int main(int argc, const char * argv[])
 {
     Mat src = imread("asset/marker0.jpg");
+    if (!src.data) {
+        cerr << "Image not found!" << endl;
+        return -1;
+    }
     Mat dst = src.clone();
     GaussianBlur( src, dst, Size( 15, 15 ), 0, 0 );
     
-    namedWindow("window 1", WINDOW_AUTOSIZE);
-    imshow("window 1", src);
+    namedWindow("Window 1", WINDOW_AUTOSIZE);
+    imshow("Window 1", src);
 
-    namedWindow("window 2", WINDOW_AUTOSIZE);
-    imshow("window 2", dst);
+    namedWindow("Window 2", WINDOW_AUTOSIZE);
+    imshow("Window 2", dst);
 
     waitKey();
     return 0;

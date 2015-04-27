@@ -1,8 +1,8 @@
 //
 //  main.cpp
-//  cvFindCirclesGrid
+//  cvFindChessboardCorners
 //
-//  Created by Zhao He on 4/24/15.
+//  Created by Zhao He on 4/27/15.
 //  Copyright (c) 2015 Zhao He. All rights reserved.
 //
 
@@ -22,9 +22,9 @@ int main(int argc, const char * argv[])
 {
     Mat img;
     Mat gray;
-    vector<Point2f> centers;
+    vector<Point2f> corners;
     string img_file = "asset/marker0.jpg";
-    Size patternsize = Size(4, 11);
+    Size patternsize = Size(6, 9);
     
     // 1. read image and convert to grayscale
     img = imread(img_file);
@@ -34,17 +34,18 @@ int main(int argc, const char * argv[])
     }
     cvtColor(img, gray, CV_RGB2GRAY);
     
-    // 2. find centers in asymmetric circle grid
-    bool patternfound = findCirclesGrid(gray, patternsize, centers, CALIB_CB_ASYMMETRIC_GRID);
+    // 2. find corners in checkerboard
+    bool patternfound = findChessboardCorners( gray, patternsize, corners,
+                                  CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
     
-    // 3. draw centers on the image
+    // 3. draw corners on the image
     namedWindow( "Window", WINDOW_AUTOSIZE );
-    drawChessboardCorners(img, patternsize, Mat(centers), patternfound);
+    drawChessboardCorners(img, patternsize, Mat(corners), patternfound);
     imshow("Window", img);
 
     // 4. output center coordinates
     cout << patternfound << endl << endl;
-    for (auto c: centers) cout << c << endl;
+    for (auto c: corners) cout << c << endl;
     
     waitKey();
     return 0;
