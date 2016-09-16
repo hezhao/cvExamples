@@ -1,5 +1,5 @@
 # cvExamples
-Example Xcode 7 projects using OpenCV 2.
+Example Xcode 8 projects using OpenCV 2.
 
 ```
 brew install opencv
